@@ -30,11 +30,11 @@ resource "aws_lb_target_group" "app" {
   vpc_id   = aws_vpc.main.id
 
   health_check {
-    path = "/api/health"
-    healthy_threshold = 2
+    path                = "/api/health"
+    healthy_threshold   = 2
     unhealthy_threshold = 3
-    interval = 5
-    timeout = 6
+    interval            = 5
+    timeout             = 4
   }
 }
 
@@ -65,10 +65,10 @@ resource "aws_security_group" "app" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    description = "From ALB"
-    from_port   = var.container_port
-    to_port     = var.container_port
-    protocol    = "tcp"
+    description     = "From ALB"
+    from_port       = var.container_port
+    to_port         = var.container_port
+    protocol        = "tcp"
     security_groups = [aws_security_group.alb.id]
   }
 
